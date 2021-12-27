@@ -1,0 +1,64 @@
+﻿@model ML.Alumno
+
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Alumno</h2>
+            <p>Agrega, edita o elimina un alumno</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2 col-md-offset-10">
+            @Html.ActionLink("+ Agregar alumno","Form","Alumno", htmlAttributes: new { @class="btn btn-primary" })
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-condensed table-bordered table-responsive">
+                <thead>
+                    <tr>
+                        <th class="text-center">Editar</th>
+                        <th class="text-center">IdAlumno</th>
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Apellido paterno</th>
+                        <th class="text-center">Apellido materno</th>
+                        <th class="text-center">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ML.Alumno alumno in Model.Alumnos)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                <a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("Form","Alumno", new { idAlumno = alumno.IdAlumno})"></a>
+                            </td>
+                            <td class="text-center">@alumno.IdAlumno</td>
+                            <td class="text-center">@alumno.Nombre</td>
+                            <td class="text-center">@alumno.ApellidoPaterno</td>
+                            <td class="text-center">@alumno.ApellidoMaterno</td>
+                            <td class="text-center">
+                                <a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Alumno", new { idAlumno = alumno.IdAlumno })" onclick="return confirm('Estas seguro que deseas eliminar al alumno')"></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

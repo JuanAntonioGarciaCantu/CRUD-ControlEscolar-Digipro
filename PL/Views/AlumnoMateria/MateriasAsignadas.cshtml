@@ -1,0 +1,72 @@
+﻿@model ML.AlumnoMateria
+
+@{
+    ViewBag.Title = "MateriasAsignadas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Materias asignadas</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p>Alumno: @Model.Alumno.Nombre @Model.Alumno.ApellidoPaterno @Model.Alumno.ApellidoMaterno</p>
+            @Html.TextBoxFor(model => model.Alumno.IdAlumno, new { @class="hidden" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2 col-md-offset-10">
+            <a href="@Url.Action("AsignarMaterias","AlumnoMateria",new { idAlumno = Model.Alumno.IdAlumno})" class="btn btn-primary">+ Agregar materias</a>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-condensed table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center">Eliminar</th>
+                        <th class="text-center">IdMateria</th>
+                        <th class="text-center">Materia</th>
+                        <th class="text-center">Costo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ML.AlumnoMateria materia in Model.AlumnoMaterias)
+                    {
+                    <tr>
+                        <td class="text-center">
+                            <a href="@Url.Action("EliminarMateriaAsignada","AlumnoMateria",new { idAlumnoMateria = materia.IdAlumno, idAlumno = Model.Alumno.IdAlumno })" class="btn btn-danger glyphicon glyphicon-trash"></a>
+                        </td>
+                        <td class="text-center">@materia.Materia.IdMateria</td>
+                        <td class="text-center">@materia.Materia.Nombre</td>
+                        <td class="text-center">$@materia.Materia.Costo</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>            
+        </div>
+    </div>
+
+    <div class="row text-right">
+        <div class="col-md-2 col-md-offset-10">            
+            @Html.ActionLink("Regresar","GetAll","AlumnoMateria", htmlAttributes: new { @class="btn btn-danger" })
+        </div>
+    </div>
+
+</div>
+

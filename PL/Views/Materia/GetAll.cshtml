@@ -1,0 +1,64 @@
+﻿@model ML.Materia
+    
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Materia</h2>
+            <p>Agrega, actualiza o elimina una materia</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2 col-md-offset-10">
+            @Html.ActionLink("+ Agregar materia","Form","Materia", new { @class = "btn btn-success" })
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-condensed">
+                <thead>
+                    <tr>
+                        <th class="text-center">Editar</th>
+                        <th class="text-center">IdMateria</th>
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Costo</th>
+                        <th class="text-center">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ML.Materia materia in Model.Materias)
+                    {
+                     <tr>
+                        <th class="text-center">
+                            <a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("Form","Materia", new { idMateria = materia.IdMateria })"></a>
+                        </th>
+                        <th class="text-center">@materia.IdMateria</th>
+                        <th class="text-center">@materia.Nombre</th>
+                        <th class="text-center">@materia.Costo</th>
+                        <th class="text-center">
+                            <a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete","Materia", new { idMateria = materia.IdMateria })" onclick="return confirm('Estas seguro de querer eliminar la materia?')"></a>
+                        </th>
+                     </tr>
+                    }
+                </tbody>   
+            </table>
+        </div>
+    </div>
+
+</div>
+

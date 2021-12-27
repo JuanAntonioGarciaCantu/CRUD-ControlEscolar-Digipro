@@ -1,0 +1,68 @@
+﻿@model ML.AlumnoMateria
+
+@{
+    ViewBag.Title = "AsignarMaterias";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Asignar materias</h2>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("AsignarMaterias","AlumnoMateria",FormMethod.Post, new { onctype = "multipart / form-data" }))
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <p>Alumno: @Model.Alumno.Nombre @Model.Alumno.ApellidoPaterno @Model.Alumno.ApellidoMaterno</p>
+                @Html.TextBoxFor(model => model.Alumno.IdAlumno, new { @class = "hidden" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <hr />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-condensed table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Selección</th>
+                            <th class="text-center">IdMateria</th>
+                            <th class="text-center">Nombre</th>
+                            <th class="text-center">Costo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (ML.Materia materia in Model.AlumnoMaterias)
+                        {
+                            <tr>
+                                <th class="text-center">
+                                    <input type="checkbox" value="@materia.IdMateria" name="AlumnoMaterias" />
+                                </th>
+                                <th class="text-center">@materia.IdMateria</th>
+                                <th class="text-center">@materia.Nombre</th>
+                                <th class="text-center">@materia.Costo</th>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a href="@Url.Action("MateriasAsignadas","AlumnoMateria",new { idAlumno = Model.Alumno.IdAlumno })" class="btn btn-danger">Regresar</a>
+                <input type="submit" class="btn btn-success" value="Aceptar"/>
+            </div>
+        </div>
+    }
+
+</div>
+
